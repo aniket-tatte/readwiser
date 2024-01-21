@@ -8,12 +8,16 @@ const Page = async () => {
   const user = await getUser()
 
   if (!user || !user.id) redirect('/auth-callback?origin=dashboard');
-
-  const dbUser = await db.user.findFirst({
-    where: {
-      id: user.id,
-    },
-  });
+  let dbUser;
+  try{
+    dbUser = await db.user.findUnique({
+      where: {
+        id: user?.id,
+      },
+    });
+  } catch(err) {
+    console.log(err)
+  }
 
   if (!dbUser) redirect("/auth-callback?origin=dashboard");
 
