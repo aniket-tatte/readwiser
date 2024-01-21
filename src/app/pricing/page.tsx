@@ -180,7 +180,8 @@ const Pricing = () => {
                         <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Link>
                     ) : user ? (
-                      <UpgradeButton />
+                      // <UpgradeButton />
+                      <></>
                     ) : (
                       <Link
                         href="/sign-in"
