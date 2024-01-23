@@ -57,4 +57,4 @@ const ChatInput = ({ isDisabled }: ChatInputProps) => {
   );
 };
 
-export default ChatInput; 
+export default ChatInput;
