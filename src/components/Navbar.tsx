@@ -7,6 +7,8 @@ import {
   RegisterLink,
   getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
+import MobileNav from "./MobileNav";
+import UserAccountNav from "./UserAccountNav";
 
 const Navbar = async () => {
     const { getUser } = getKindeServerSession();
@@ -16,15 +18,19 @@ const Navbar = async () => {
       <MaxWidthWrapper>
         <div className="flex h-14 items-center justify-between border-b border-zinc-200">
           <Link href="/" className="flex z-40 font-semibold">
-            <span>ReadWiser</span>
+            <span className="text-xl">
+              ReadWiser
+              <sup className="text-xs font-bold ml-1">[BETA]</sup>
+            </span>
           </Link>
-          {/* {TODO: Add mobile/responsive Navbar} */}
+
+          <MobileNav isAuth={!!user} />
 
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
               <>
                 <Link
-                  href="/pricing"
+                  href="#"
                   className={buttonVariants({
                     variant: "ghost",
                     size: "sm",
@@ -59,6 +65,15 @@ const Navbar = async () => {
                 >
                   Dashboard
                 </Link>
+                <UserAccountNav
+                  name={
+                    !user.given_name || !user.family_name
+                      ? "Your Account"
+                      : `${user.given_name} ${user.family_name}`
+                  }
+                  email={user.email ?? ""}
+                  imageUrl={user.picture ?? ""}
+                />
               </>
             )}
           </div>
